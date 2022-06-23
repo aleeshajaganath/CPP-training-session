@@ -3,8 +3,13 @@ using namespace std;
 
 void arrayPointer(){
 
+    // array of pointer
+    
+
     int arr[10]={0,1,2,3,4,5,6,7,8,9};
     int *p= arr;
+
+    //display array using pointer
     for(int i=0;i<9;i++)
         cout << *(p+i) << endl;
 
@@ -13,6 +18,8 @@ void arrayPointer(){
 }
 
 void pointer(){
+
+    //pointer concepts
 
     int x=5, *a;
 
@@ -44,7 +51,6 @@ void pointer(){
 
     cout << "sum of pointer is *b + *pii " <<  *a + *pii << endl;
 
-    // *pii=*a+*pii;
 
     int *px = &n ;
     pii =(double*)px; //∗ pn originally of type ( int ∗) ∗/
@@ -53,23 +59,29 @@ void pointer(){
 }
 
 int add(int a , int b){
-
+// add 2 numbers
     return a+b;
 }
 
 void justfun(){
+    // just a function to display
     cout<<"inside justfun()";
 }
 
 void function(void (*functn)()){
+
+    // function with pointer function as argument
     functn();
 }
+
 void functionpointer(){
 
+    //  pointer function 
+
     // int (*FuncPtr) (int,int);  
-    int (*refer)(int,int);
-    refer=add;
-    int sum=refer(5,5);
+    int (*refer)(int,int); //declaration 
+    refer=add; //assign add function to refer
+    int sum=refer(5,5); //call pointer to add 'refer'
 
     cout << "Sum is  = " << sum << endl;
 
