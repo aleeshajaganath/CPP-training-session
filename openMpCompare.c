@@ -7,9 +7,9 @@
 void subdomain(float *x, int istart, int ipoints)
 {
     int i;
-    for (i = 0; i < ipoints; i++)
+    for (i = istart; i < ipoints; i++)
         x[istart+i] = 123.456;
-    printf("\n row = %d and column = %d",istart,ipoints);
+    // printf("\n row = %d and column = %d",istart,ipoints);
 
 }
 
@@ -21,6 +21,9 @@ void sub(float *x, int npoints)
     // #pragma omp <directive> [clause[ [,] clause]...]
     // directives specify either work-sharing or synchronization constructs.
     #pragma omp parallel default(shared) private(iam,nt,ipoints,istart)
+    #pragma omp for ordered
+    for (int i = 0; i < 1000; i++)
+
     {
         iam = omp_get_thread_num();
         nt = omp_get_num_threads();
@@ -29,7 +32,7 @@ void sub(float *x, int npoints)
         if (iam == nt-1)
             /* last thread may do more */
             ipoints = npoints - istart;
-        printf("\n thread no = %d ",iam);
+        // printf("\n thread no = %d ",iam);
 
         subdomain(x, istart, ipoints);
     }
@@ -40,28 +43,19 @@ void sub(float *x, int npoints)
 void subnormal(float *x, int npoints)
 {
     int iam, nt, ipoints, istart;
+    nt=4;
+    ipoints = npoints / nt;   /* size of partition */
+    for (int iam = 0; iam < nt; iam++)
+    {           
+        // printf("\n i no = %d ",iam);
 
-    // #pragma omp <directive> [clause[ [,] clause]...]
-    // directives specify either work-sharing or synchronization constructs.
-    // #pragma omp parallel default(shared) private(iam,nt,ipoints,istart)
-    // {
-        // iam = omp_get_thread_num();
-        // nt = omp_get_num_threads();
-        nt=4;
-        ipoints = npoints / nt;   /* size of partition */
-        for (int iam = 0; iam < nt; iam++)
-        {           
-            printf("\n i no = %d ",iam);
-
-            istart = iam * ipoints; /* starting array index */
-            if (iam == nt-1){
-                printf("\n last i no = %d ",iam);
-
-                /* last thread may do more */
-                ipoints = npoints - istart;
-            // printf("\n thread no = %d ",iam);
-            }
-            subdomain(x, istart, ipoints);
+        istart = iam * ipoints; /* starting array index */
+        if (iam == nt-1){
+            // printf("\n last i no = %d ",iam);
+            /* last thread may do more */
+            ipoints = npoints - istart;
+        }
+        subdomain(x, istart, ipoints);
     }
 }
 
@@ -79,7 +73,14 @@ int main()
         t1 = clock();
 
         float array1[10000];
-        subnormal(array1, 10000);
+
+        for (int i = 0; i < 1000; i++)
+        {
+            /* code */
+            subnormal(array1, 10000);
+
+        }
+        
 
         t1 = clock() - t1;
         // double 
