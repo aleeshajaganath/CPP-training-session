@@ -3,7 +3,7 @@
 #include <unistd.h> //Header file for sleep(). man 3 sleep for details.
 #include <pthread.h>
 
-void* justprint(void *threadID){
+void* Justprint(void *threadID){
     long tid;
     tid= (long) threadID;
     printf("\t thread id no is %ld ",tid);
@@ -15,7 +15,7 @@ int main(){
 
     for (long i = 0; i < count; i++)    {
         printf(" \n In main creating thread  %ld \n",i);
-        int rc=pthread_create(&threads[i], NULL,justprint, (void *) i);
+        int rc=pthread_create(&threads[i], NULL,Justprint, (void *) i);
         if (rc){
             printf("ERROR CODE %d",rc);
             exit(-1);
