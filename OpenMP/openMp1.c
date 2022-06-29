@@ -1,5 +1,5 @@
-#include<omp.h>
-#include<stdio.h>
+#include <omp.h>
+#include <stdio.h>
 
 /*
     export OMP_NUM_THREADS=4 #set on terminal for contralling no of threads
@@ -8,25 +8,23 @@
     openMP code using parallel directive
 */
 
-int main(){
+int main() {
+  // outside parallel part variables are shared variable
+  int no_threads = omp_get_num_threads();
+  int threads_id = omp_get_thread_num();
 
-    //outside parallel part variables are shared variable
+// specify the block to be executed
+#pragma omp parallel  // compiler directive
+  {
+    /*
+
     int no_threads=omp_get_num_threads();
     int threads_id=omp_get_thread_num();
+    no_threads,threads_id inside stack each copy
+    */
+    printf("\nno threads :\t%d", no_threads);
+    printf("\nthreads id :\t%d", threads_id);
+  }
 
-    // specify the block to be executed
-    #pragma omp parallel //compiler directive
-    {
-        /*
-        
-        int no_threads=omp_get_num_threads();
-        int threads_id=omp_get_thread_num();
-        no_threads,threads_id inside stack each copy
-        */
-        printf("\nno threads :\t%d",no_threads);
-        printf("\nthreads id :\t%d",threads_id);
-
-    }
-
-    return 0;
+  return 0;
 }
