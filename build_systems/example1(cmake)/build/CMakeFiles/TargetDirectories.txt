@@ -1,0 +1,3 @@
+/home/mcw/Downloads/tempFolder/git/c-program-tutorials/CMakeFiles/build/CMakeFiles/rebuild_cache.dir
+/home/mcw/Downloads/tempFolder/git/c-program-tutorials/CMakeFiles/build/CMakeFiles/edit_cache.dir
+/home/mcw/Downloads/tempFolder/git/c-program-tutorials/CMakeFiles/build/CMakeFiles/testStudent.dir
