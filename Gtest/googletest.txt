@@ -1,0 +1,14 @@
+﻿TestSuite:It is used for grouping related tests.
+TEST(): It exercises a particular program path with specific input values and verify the result.
+
+Assertions:
+A statements that check whether a condition is true.
+Output: success, nonfatal failure, or fatal failure(aborts the current function).
+Test fixture class:
+Collection of multiple tests in a test suite that need to share common objects and subroutines.
+
+ASSERT_*: Generate fatal failures when they fail, and abort the current function immediately. (possibly skipping clean-up code that comes after it, it may cause a space leak).
+EXPECT_*:Generate nonfatal failures, which don’t abort the current function.
+Examples:
+ASSERT_EQ, ASSERT_NE, ASSERT_LT, ASSERT_GT, ASSERT_GE.
+EXPECT_WQ, EXPECT_NE, EXPECT_LT, EXPECT_GT, EXPECT_GE.
