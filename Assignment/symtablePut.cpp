@@ -132,16 +132,27 @@ int SymTable_contains ( SymTable_t *oSymTable, const char *pcKey){
     iNode* prev =(iNode*)SymTable_get (oSymTable , pcKey);
     if (prev!=NULL)
         return 1;
-
-    // while (prev!= NULL and prev){
-    //     if (prev->KEY==pcKey){
-    //         return 1;
-    //     }
-    //     prev = prev->next;
-    // }
     return 0;
 }
 
+// searches through oSymTable to locate the binding with pcKey
+// if success replace else return NULL
+void *SymTable_replace (SymTable_t *oSymTable,
+                        const char *pcKey,
+                        const void *pvValue){ 
+    if (SymTable_contains(oSymTable,pcKey)==0)
+        return NULL;
+    iNode* prev = head;
+    while (prev!= NULL &&prev->KEY!=NULL){
+        if (prev->KEY==pcKey){
+            prev->VALUE=pvValue;
+            cout<<"REPLACED"<<*(int*)prev->VALUE<<endl;
+            return prev;
+        }
+        prev = prev->next;
+    }
+    return prev;
+}
 // printing the SLL
 void Print() {
     int i=0;
@@ -159,6 +170,24 @@ void Print() {
         pre = pre->next;
         // i++;
     }
+
+void display(const char *pcKey1, const void *pvValue1){
+    cout<<"key = "<<pcKey1<<" with  value = "<<*(int*)pvValue1<<endl;
+    
+}
+// caling another function while traversal
+void SymTable_map ( SymTable_t *oSymTable, 
+                    void (*pfApply) (const char *pcKey1, const void *pvValue1),
+                    const char *pcKey,const void *pvValue){   
+    iNode* pre = head;
+    int i=0;
+    while (pre != NULL and pre->KEY!=NULL) {
+        // cout << pre << "->"<<i<<endl;
+        pfApply(pre->KEY,pre->VALUE);
+        pre = pre->next;
+        i++;
+    }
+}
 typedef SymTable_t iNode;
 
 
@@ -210,14 +239,6 @@ int main(){
     result=SymTable_put (head,pcKey2,x1);
     Print();
 
-    // const char *pcKey3="i3";
-    // string ptr="st1";
-    // int *pvValue=1;
-    // int *x3,y3=29;
-    // x3=&y3;
-    // string str = "std::string to const char*";
-    // result=SymTable_put (head,&str[0],x3);
-    // Print();
     cout<<"calling SymTable_get() for KEY = "<<pcKey2<<endl;
     iNode* prev1 = (iNode*)SymTable_get (head , pcKey2);
     if(prev1!=NULL)
@@ -248,6 +269,26 @@ int main(){
     cout<<"calling SymTable_contains() for KEY = "<<pcKey5<<endl;
     result =SymTable_contains(head,pcKey5);
     cout<<"result  is "<<result<<endl;
-    // SymTable_contains()
+
+    Print();
+    int y5=5;
+    cout<<"calling SymTable_replace() for KEY = "<<pcKey2<<endl;
+    prev1 =(iNode*)SymTable_replace(head,pcKey2,&y);
+    if(prev1!=NULL){       cout<<"Replaced key = "<<pcKey2<<" with new value = "<<*(int*)prev1->VALUE<<endl;
+    }else
+    cout<<"Key Not Found"<<endl;
+
+
+    cout<<"calling SymTable_replace() for KEY = "<<pcKey<<"new value = "<<y<<endl;
+    int m=10, *re=&m;
+    prev1 =(iNode*)SymTable_replace(head,pcKey,&m);
+    if(prev1!=NULL){       cout<<"Replaced key = "<<pcKey<<" with new value = "<<*(int*)prev1->VALUE<<endl;
+    }else
+    cout<<"Key Not Found"<<endl;
+
+    // const char *pcKey=NULL;
+    // const void *pvValue=NULL;
+    SymTable_map(head,display,nullptr,nullptr);
+    Print();
     return 0;
 }
