@@ -126,8 +126,21 @@ void *SymTable_remove ( SymTable_t *oSymTable,
     // return prev;
 }
 
+// searches to locate pcKey. successful, returns 1 else 0.
+int SymTable_contains ( SymTable_t *oSymTable, const char *pcKey){
+    // iNode* prev = head;
+    iNode* prev =(iNode*)SymTable_get (oSymTable , pcKey);
+    if (prev!=NULL)
+        return 1;
 
-
+    // while (prev!= NULL and prev){
+    //     if (prev->KEY==pcKey){
+    //         return 1;
+    //     }
+    //     prev = prev->next;
+    // }
+    return 0;
+}
 
 // printing the SLL
 void Print() {
@@ -169,11 +182,6 @@ int main(){
     }
     
     cout<<"(SymTable_getLength)Total length including head is : "<<SymTable_getLength(head)<<endl;
-    //complete symtable remove from header onwards
-    // SymTable_free();
-    // cout<<"Freed memory using SymTable_free"<<endl;
-    // Print();
-    // cout<<"(SymTable_getLength)Total length including head is : "<<SymTable_getLength(head)<<endl;
     const char *pcKey="i0";
     // int *pvValue=1;
     int *x,y=9;
@@ -193,16 +201,6 @@ int main(){
     // result=SymTable_put (head,key.c_str(),x);
     result=SymTable_put (head,pcKey1,x);
 
-    // *x=22;
-    // // string 
-    // key="iklkl2";
-    // result=SymTable_put (head,key.c_str(),x);
-    // cout<<"last"<<endl;
-    // cout << &(head->next->KEY) << endl;
-    // cout << *(int*)head->next->VALUE << endl;
-    // int* ptrr = (int*)head->VALUE;
-    // char* ptrr1 = (char*)head->KEY;
-    // cout<<*ptrr1;
     Print();
 
     const char *pcKey2="i2";
@@ -238,5 +236,18 @@ int main(){
         free(prev1);
     }
     Print();
+
+    cout<<"calling SymTable_contains() for KEY = "<<pcKey1<<endl;
+    result =SymTable_contains(head,pcKey1);
+    cout<<"result  is "<<result<<endl;
+
+    cout<<"calling SymTable_contains() for KEY = "<<pcKey<<endl;
+    result =SymTable_contains(head,pcKey);
+    cout<<"result  is "<<result<<endl;
+
+    cout<<"calling SymTable_contains() for KEY = "<<pcKey5<<endl;
+    result =SymTable_contains(head,pcKey5);
+    cout<<"result  is "<<result<<endl;
+    // SymTable_contains()
     return 0;
 }
