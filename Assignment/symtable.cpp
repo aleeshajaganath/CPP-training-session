@@ -47,27 +47,40 @@ int SymTable_getLength (SymTable_t *oSymTable){
 
 // inserts returns 1 if pcKey is absent
 int SymTable_put (SymTable_t *oSymTable,const char *pcKey, const void *pvValue){
-    // cout<<"1. PUT"<<endl;
+    cout<<"\n**********SymTable_put**********"<<endl;
+    int i=0;
+    cout<<"pcKey "<<pcKey<<endl;
+    cout<<"pvValue "<<*(int*)pvValue<<endl;
     if (head->KEY==NULL){
         head->KEY=&pcKey;
         head->VALUE=pvValue;
+        // i++;
+        cout<<"Inserted at HEAD "<<i<<endl;
         return 1;
+    }else if (head->KEY==pcKey)  {
+        return 0;
     }
+    // i++;
+
     // cout<<"2. PUT"<<endl;
     iNode* prev = head;
-    while (prev->next!= NULL){
+    while (prev->next!= NULL && prev->KEY!=NULL){
+        i++;
+        cout<<i<<endl;
         if (prev->KEY==pcKey){//key present
             return 0;
         }
         prev = prev->next;
     }
-    // if (prev->next == NULL) { #ASSUME
+
+    if (prev->next == NULL) {// create as no memory available
         prev->next=SymTable_new();
+    }
         // if (prev==NULL)
         //     return 0;
-        prev->KEY=&pcKey;
-        prev->VALUE=pvValue;
-    // } 
+    prev->KEY=&pcKey;
+    prev->VALUE=pvValue;
+    cout<<"Inserted at PREV"<<endl;
     return 1;
 }
 // searches through oSymTable to locate the binding with pcKey
@@ -152,19 +165,22 @@ void SymTable_map ( SymTable_t *oSymTable,
 // printing the SLL
 void Print() {
     int i=0;
-    cout << "the SLL is " << endl;
+    cout << "\n the SLL is " << endl;
     iNode* pre = head;
-    while (pre != NULL) {
-        if (pre->KEY!=NULL){
+    while (pre != NULL && pre->KEY!=NULL){
             int* ptrr1 = (int*)pre->VALUE;
             char* ptrr2 = (char*)pre->KEY;
-            cout << "\nkey "<<*ptrr2 << " ->  value"<<*ptrr1<<endl;
-        }cout << pre << "->"<<i<<endl;
+            const char *c =(char*)pre->KEY;
+            cout << "key "<<&ptrr2 << " ->  value "<<*(int*)pre->VALUE<<endl;
+            pre = pre->next;
+
+        }
+        // cout << pre << "->"<<i<<endl;
         pre = pre->next;
-        i++;
+        // i++;
     }
-    cout << " " << pre << endl;
-}
+    // cout << " " << pre << endl;
+// }
 typedef SymTable_t iNode;
 
 int main(){
@@ -186,33 +202,50 @@ int main(){
     //complete symtable remove from header onwards
     // SymTable_free();
     // cout<<"Freed memory using SymTable_free"<<endl;
-    Print();
-    cout<<"(SymTable_getLength)Total length including head is : "<<SymTable_getLength(head)<<endl;
+    // Print();
+    // cout<<"(SymTable_getLength)Total length including head is : "<<SymTable_getLength(head)<<endl;
     const char *pcKey="iklkl";
     // int *pvValue=1;
     int *x,y=9;
     x=&y;
     int result=SymTable_put (head,pcKey,x);
     cout<<"(SymTable_put)inserted ..!\nkey : "<<pcKey<<"\nvalue : "<<*x<<endl;
-    // Print();
+    Print();
     // int* ptrr = (int*)head->VALUE;
     // char* ptrr = (char*)head->KEY;
+    // cout<<*ptrr;
 
     *x=21;
     string key="iklkl1";
-    result=SymTable_put (head,key.c_str(),x);
+    const char *pcKey1="iklkl234";
 
-    *x=22;
-    // string 
-    key="iklkl2";
-    result=SymTable_put (head,key.c_str(),x);
+    // result=SymTable_put (head,key.c_str(),x);
+    result=SymTable_put (head,pcKey1,x);
+
+    // *x=22;
+    // // string 
+    // key="iklkl2";
+    // result=SymTable_put (head,key.c_str(),x);
     cout<<"last"<<endl;
-    cout << (const char*)head->next->KEY << endl;
-    cout << (int*)head->next->VALUE << endl;
-    int* ptrr = (int*)head->VALUE;
-    char* ptrr1 = (char*)head->KEY;
-    cout<<*ptrr1;
-    // Print();
+    cout << &(head->next->KEY) << endl;
+    cout << *(int*)head->next->VALUE << endl;
+    // int* ptrr = (int*)head->VALUE;
+    // char* ptrr1 = (char*)head->KEY;
+    // cout<<*ptrr1;
+    Print();
 
+    const char *pcKey2="iklkl2";
+    // int *pvValue=1;
+    int *x1,y2=9;
+    x1=&y2;
+    result=SymTable_put (head,pcKey2,x1);
+    Print();
+
+    const char *pcKey3="iklkl3";
+    // int *pvValue=1;
+    int *x3,y3=19;
+    x3=&y3;
+    result=SymTable_put (head,pcKey3,x3);
+    Print();
     return 0;
 }
