@@ -81,27 +81,50 @@ int SymTable_put (SymTable_t *oSymTable,const char *pcKey, const void *pvValue){
 void* SymTable_get (SymTable_t *oSymTable, const char *pcKey){
     iNode* prev = head;
 
-    cout<<"\n**********SymTable_get**********"<<endl;
-    int i=0;
-    cout<<"pcKey "<<pcKey<<endl;
-    // cout<<"pvValue "<<*(int*)pvValue<<endl;
-
+    // cout<<"\n**********SymTable_get**********"<<endl;
+    // int i=0;
+    // cout<<"pcKey "<<pcKey<<endl;
     while (prev!= NULL and prev->KEY!=NULL){
-        cout<<"KEY "<<prev->KEY<<endl;
+        // cout<<"KEY "<<prev->KEY<<endl;
         if (prev->KEY==pcKey){
-            cout<<"VALUE "<<*(int *)prev->VALUE<<endl;
+            // cout<<"VALUE "<<*(int *)prev->VALUE<<endl;
             void *pointer_name;  
             pointer_name=&prev->VALUE;
-            // return *pointer_name;
-            return prev;//->VALUE;
+            return prev;
         }
         prev = prev->next;
     }
-    // cout<<"no value"<<endl;
     return NULL;
 }
 
-
+// searches pcKey. successful, returns removes the binding else NULL
+void *SymTable_remove ( SymTable_t *oSymTable,
+                        const char *pcKey){
+    iNode* tmp = NULL;
+    if (head->KEY==pcKey){
+        tmp=head;
+        head=head->next;
+        free(tmp);
+        return head;
+    }
+    iNode* prev = NULL, *NEXT=head;
+    while (NEXT!=NULL &&NEXT->KEY!=NULL)    {
+        
+        if (NEXT->KEY!=pcKey){
+            prev=NEXT;
+            NEXT=NEXT->next;
+        }else{
+            tmp=prev->next;
+            prev->next=NEXT->next;
+            // free(tmp);
+            return tmp;
+            // break;
+        }
+    }   
+    // if (NEXT->KEY==NULL)
+        return NULL;
+    // return prev;
+}
 
 
 
@@ -208,5 +231,12 @@ int main(){
     if(prev1!=NULL)
         cout<<"result Value is "<<prev1->VALUE<<endl;
 
+    cout<<"calling SymTable_remove() for KEY = "<<pcKey2<<endl;
+    prev1 =(iNode*) SymTable_remove(head,pcKey2);
+    if(prev1!=NULL){
+        cout<<"Removed Value is "<<*(int*)prev1->VALUE<<endl;
+        free(prev1);
+    }
+    Print();
     return 0;
 }
