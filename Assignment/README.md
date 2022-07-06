@@ -1,40 +1,32 @@
 # c-program-tutorials
-<p> This repo contains C++/C programing code
+<p> Implementing Symbol Tables with Linked Lists
 <summary>Content</summary>
 
-- Class 
-  - abstractCls.cpp
-  - constructor.cpp
-  - inheritance.cpp
-  - virtual.cpp
-- Graphs
-  - bfs.cpp
-  - graph_cycles_using_dfs1.cpp
-  - graph_path_using_dfs1.cpp
+- symtable.h 
+  - contains function declarations used by all other cpp files
+- symtable.cpp
+  - Function definition of all declarations made in symtable.h 
+- main.cpp
+  - CPP file impliments singly linked list and its operations like insertion, deletion,replace and check by including symtable.h and symtable.cpp file
+- symtable_test.cpp
+  - unit testing all functions defined in symtable.cpp file
+- makefile
+  - compile a main program from source code
+- bin.sh
+  - bash script to run main.cpp 
+- gtest.sh
+  - bash script to run symtable_test.cpp 
 
-- OpenMP
-  - openMp1.c
-  - openMpCompare.c
-  - openMp_dynamic.c
-  - openMp_static.c
+<summary>Compile and Run the Project</summary>
+- main.cpp
 
-- Pointers
-   - first.cpp
-  - lecture7.cpp
-  - lecture8.cpp
-  - voidpointer.cpp
-- stacks_queue_linkedlist
-  - linkedlist_template_pointer.cpp
-  - queue.cpp
-  - stack.cpp
+```
+source bin.sh
+```
 
-- structure_template
-  - Structure_.cpp
-  - Structure_pointer_template.cpp
-  - template1.cpp
-  - templateExter.cpp
+- Testing using unit test
 
-- thread
-  - multiple_thread.c
-  - thread.c
+```
+source gtest.sh
+```
 
