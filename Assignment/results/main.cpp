@@ -1,8 +1,9 @@
 #include"symtable.h"
 #include <iostream>
 using namespace std;
+#include<gtest/gtest.h>
 
-int TOTAL_BIND=0;
+// int TOTAL_BIND=0;
 
 /*  structure containing two boxes key (KEY) and value (VALUE)  and next binding (next)*/
 struct SymTable_t {
@@ -14,6 +15,8 @@ struct SymTable_t {
 };
 
 iNode* head;
+
+
 int main(){
     int i=2;
 
@@ -32,32 +35,24 @@ int main(){
     
     cout<<"(SymTable_getLength)Total length including head is : "<<SymTable_getLength(head)<<endl;
     const char *pcKey="i0";
-    // int *pvValue=1;
     int *x,y=9;
     x=&y;
     int result=SymTable_put (head,pcKey,x);
     cout<<"(SymTable_put)inserted ..!\nkey : "<<pcKey<<"\nvalue : "<<*x<<endl;
-    Print();
-    // int* ptrr = (int*)head->VALUE;
-    // char* ptrr = (char*)head->KEY;
-    // cout<<"*ptrr";
+    Print(head);
 
     int xa=21;
     x=&xa;
     string key="i1";
     const char *pcKey1="i1";
-
-    // result=SymTable_put (head,key.c_str(),x);
     result=SymTable_put (head,pcKey1,x);
-
-    Print();
-
+    Print(head);
     const char *pcKey2="i2";
     // int *pvValue=1;
     int *x1,y2=19;
     x1=&y2;
     result=SymTable_put (head,pcKey2,x1);
-    Print();
+    Print(head);
 
     cout<<"calling SymTable_get() for KEY = "<<pcKey2<<endl;
     iNode* prev1 = (iNode*)SymTable_get (head , pcKey2);
@@ -76,7 +71,7 @@ int main(){
         cout<<"Removed Value is "<<*(int*)prev1->VALUE<<endl;
         free(prev1);
     }
-    Print();
+    Print(head);
 
     cout<<"calling SymTable_contains() for KEY = "<<pcKey1<<endl;
     result =SymTable_contains(head,pcKey1);
@@ -90,7 +85,7 @@ int main(){
     result =SymTable_contains(head,pcKey5);
     cout<<"result  is "<<result<<endl;
 
-    Print();
+    Print(head);
     int y5=5;
     cout<<"calling SymTable_replace() for KEY = "<<pcKey2<<endl;
     prev1 =(iNode*)SymTable_replace(head,pcKey2,&y);
@@ -108,7 +103,7 @@ int main(){
 
     // const char *pcKey=NULL;
     // const void *pvValue=NULL;
-    // SymTable_map(head,display,nullptr,nullptr);
-    Print();
+    SymTable_map(head,&display);
+    //Print();
     return 0;
 }
