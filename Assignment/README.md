@@ -16,6 +16,12 @@
   - bash script to run main.cpp 
 - gtest.sh
   - bash script to run symtable_test.cpp 
+- build/out
+  -  valgrind summary by running
+  ```
+  cd build
+  valgrind -v ./testSll >& out 
+  ```
 
 <summary>Compile and Run the Project</summary>
 - symtable_link.cpp
