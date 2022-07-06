@@ -47,27 +47,17 @@ int SymTable_getLength (SymTable_t *oSymTable){
 
 // inserts returns 1 if pcKey is absent
 int SymTable_put (SymTable_t *oSymTable,const char *pcKey, const void *pvValue){
-    cout<<"\n**********SymTable_put**********"<<endl;
     int i=0;
-    cout<<"pcKey "<<pcKey<<endl;
-    cout<<"pvValue "<<*(int*)pvValue<<endl;
     if (oSymTable->KEY==NULL){
         oSymTable->KEY=pcKey;
-        // cout<<"KEY ONLY"<<oSymTable->KEY;
         oSymTable->VALUE=pvValue;
-        // i++;
-        // cout<<"Inserted at oSymTable "<<i<<endl;
         return 1;
     }else if (oSymTable->KEY==pcKey)  {
         return 0;
     }
-    // i++;
-
-    // cout<<"2. PUT"<<endl;
     iNode* prev = oSymTable;
     while (prev->next!= NULL && prev->KEY!=NULL){
         i++;
-        // cout<<i<<endl;
         if (prev->KEY==pcKey){//key present
             return 0;
         }
@@ -78,9 +68,6 @@ int SymTable_put (SymTable_t *oSymTable,const char *pcKey, const void *pvValue){
     }
     prev->KEY=pcKey;
     prev->VALUE=pvValue;
-    // cout<<"KEY ONLY"<<(const char*)prev->KEY;
-
-    // cout<<"Inserted at PREV"<<endl;
     return 1;
 }
 
@@ -91,14 +78,8 @@ int SymTable_put (SymTable_t *oSymTable,const char *pcKey, const void *pvValue){
 // searches pcKey. successful, returns the value else NULL
 void* SymTable_get (SymTable_t *oSymTable, const char *pcKey){
     iNode* prev = oSymTable;
-
-    // cout<<"\n**********SymTable_get**********"<<endl;
-    // int i=0;
-    // cout<<"pcKey "<<pcKey<<endl;
     while (prev!= NULL and prev->KEY!=NULL){
-        // cout<<"KEY "<<prev->KEY<<endl;
         if (prev->KEY==pcKey){
-            // cout<<"VALUE "<<*(int *)prev->VALUE<<endl;
             void *pointer_name;  
             pointer_name=&prev->VALUE;
             return prev;
@@ -132,14 +113,11 @@ void *SymTable_remove ( SymTable_t *oSymTable,
             // break;
         }
     }   
-    // if (NEXT->KEY==NULL)
-        return NULL;
-    // return prev;
+    return NULL;
 }
 
 // searches to locate pcKey. successful, returns 1 else 0.
 int SymTable_contains ( SymTable_t *oSymTable, const char *pcKey){
-    // iNode* prev = oSymTable;
     iNode* prev =(iNode*)SymTable_get (oSymTable , pcKey);
     if (prev!=NULL)
         return 1;
@@ -177,9 +155,7 @@ void Print(SymTable_t *oSymTable) {
             pre = pre->next;
 
         }
-        // cout << pre << "->"<<i<<endl;
         pre = pre->next;
-        // i++;
     }
 
 void display(const char *pcKey1, const void *pvValue1){
@@ -193,7 +169,6 @@ void SymTable_map ( SymTable_t *oSymTable,
     iNode* pre = oSymTable;
     int i=0;
     while (pre != NULL and pre->KEY!=NULL) {
-        // cout << pre << "->"<<i<<endl;
         pfApply(pre->KEY,pre->VALUE);
         pre = pre->next;
         i++;
@@ -201,105 +176,3 @@ void SymTable_map ( SymTable_t *oSymTable,
 }
 typedef SymTable_t iNode;
 
-
-
-
-
-// int main(){
-//     int i=2;
-
-//     // create 5 bindings
-//     if(oSymTable==NULL){
-//         oSymTable=SymTable_new();
-
-//     }
-//     iNode* prev= oSymTable;
-//     while (i>0)    {
-//         prev->next=SymTable_new();
-//         prev=prev->next;
-//         cout<<i<<endl;
-//         i--;
-//     }
-    
-//     cout<<"(SymTable_getLength)Total length including oSymTable is : "<<SymTable_getLength(oSymTable)<<endl;
-//     const char *pcKey="i0";
-//     // int *pvValue=1;
-//     int *x,y=9;
-//     x=&y;
-//     int result=SymTable_put (oSymTable,pcKey,x);
-//     cout<<"(SymTable_put)inserted ..!\nkey : "<<pcKey<<"\nvalue : "<<*x<<endl;
-//     Print();
-//     // int* ptrr = (int*)oSymTable->VALUE;
-//     // char* ptrr = (char*)oSymTable->KEY;
-//     // cout<<"*ptrr";
-
-//     int xa=21;
-//     x=&xa;
-//     string key="i1";
-//     const char *pcKey1="i1";
-
-//     // result=SymTable_put (oSymTable,key.c_str(),x);
-//     result=SymTable_put (oSymTable,pcKey1,x);
-
-//     Print();
-
-//     const char *pcKey2="i2";
-//     // int *pvValue=1;
-//     int *x1,y2=19;
-//     x1=&y2;
-//     result=SymTable_put (oSymTable,pcKey2,x1);
-//     Print();
-
-//     cout<<"calling SymTable_get() for KEY = "<<pcKey2<<endl;
-//     iNode* prev1 = (iNode*)SymTable_get (oSymTable , pcKey2);
-//     if(prev1!=NULL)
-//         cout<<"result Value is "<<*(int*)prev1->VALUE<<endl;
-
-//     const char *pcKey5="i5";
-//     cout<<"calling SymTable_get() for KEY = "<<pcKey5<<endl;
-//     prev1 = (iNode*)SymTable_get (oSymTable , pcKey5);
-//     if(prev1!=NULL)
-//         cout<<"result Value is "<<prev1->VALUE<<endl;
-
-//     cout<<"calling SymTable_remove() for KEY = "<<pcKey2<<endl;
-//     prev1 =(iNode*) SymTable_remove(oSymTable,pcKey2);
-//     if(prev1!=NULL){
-//         cout<<"Removed Value is "<<*(int*)prev1->VALUE<<endl;
-//         free(prev1);
-//     }
-//     Print();
-
-//     cout<<"calling SymTable_contains() for KEY = "<<pcKey1<<endl;
-//     result =SymTable_contains(oSymTable,pcKey1);
-//     cout<<"result  is "<<result<<endl;
-
-//     cout<<"calling SymTable_contains() for KEY = "<<pcKey<<endl;
-//     result =SymTable_contains(oSymTable,pcKey);
-//     cout<<"result  is "<<result<<endl;
-
-//     cout<<"calling SymTable_contains() for KEY = "<<pcKey5<<endl;
-//     result =SymTable_contains(oSymTable,pcKey5);
-//     cout<<"result  is "<<result<<endl;
-
-//     Print();
-//     int y5=5;
-//     cout<<"calling SymTable_replace() for KEY = "<<pcKey2<<endl;
-//     prev1 =(iNode*)SymTable_replace(oSymTable,pcKey2,&y);
-//     if(prev1!=NULL){       cout<<"Replaced key = "<<pcKey2<<" with new value = "<<*(int*)prev1->VALUE<<endl;
-//     }else
-//     cout<<"Key Not Found"<<endl;
-
-
-//     cout<<"calling SymTable_replace() for KEY = "<<pcKey<<"new value = "<<y<<endl;
-//     int m=10, *re=&m;
-//     prev1 =(iNode*)SymTable_replace(oSymTable,pcKey,&m);
-//     if(prev1!=NULL){       cout<<"Replaced key = "<<pcKey<<" with new value = "<<*(int*)prev1->VALUE<<endl;
-//     }else
-//     cout<<"Key Not Found"<<endl;
-
-//     // const char *pcKey=NULL;
-//     // const void *pvValue=NULL;
-//     SymTable_map(oSymTable,display,nullptr,nullptr);
-//     Print();
-//     return 0;
-// }

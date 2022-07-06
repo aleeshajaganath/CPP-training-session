@@ -1,2 +1,2 @@
-g++ symtable_test1.cpp -lgtest -lgtest_main -pthread 
+g++ symtable_test.cpp -lgtest -lgtest_main -pthread 
 ./a.out 

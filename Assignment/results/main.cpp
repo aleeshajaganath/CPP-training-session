@@ -1,18 +1,9 @@
 #include"symtable.h"
+#include"symtable.cpp"
 #include <iostream>
 using namespace std;
 #include<gtest/gtest.h>
 
-// int TOTAL_BIND=0;
-
-/*  structure containing two boxes key (KEY) and value (VALUE)  and next binding (next)*/
-struct SymTable_t {
-    struct SymTable_t* next;
-    // void* KEY;//[100];
-    const char *KEY;
-    const void*  VALUE;
-
-};
 
 iNode* head;
 
