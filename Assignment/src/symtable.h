@@ -1,11 +1,7 @@
 #ifndef SYMTABLE
 #define SYMTABLE
-// #include<iostream>
-// template <class T>
 struct SymTable_t;
 typedef SymTable_t iNode;
-
-// template <void>struct SymTable_t* x;
 SymTable_t* SymTable_new ( );
 void Print(SymTable_t *);
 void SymTable_free (SymTable_t *);

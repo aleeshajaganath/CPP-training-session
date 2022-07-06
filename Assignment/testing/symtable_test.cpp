@@ -2,24 +2,12 @@
       definitions
 #########################################*/
 #include<gtest/gtest.h>
-#include"symtable.h"
-#include"symtable.cpp"
+#include"../src/symtable.h"
+#include"../src/symtable.cpp"
 #include <iostream>
 using namespace std;
-
-// int TOTAL_BIND=0;
-
-/*  structure containing two boxes key (KEY) and value (VALUE)  and next binding (next)*/
-// struct SymTable_t {
-//     struct SymTable_t* next;
-//     // void* KEY;//[100];
-//     const char *KEY;
-//     const void*  VALUE;
-
-// };
 iNode* head;
-
-TEST(SymTable_t1,SymTableTestOfnullptr){// ZeroShouldBeOne){
+TEST(SymTable_t1,SymTableTestOfnullptr){
     iNode* pre = head;
     int i=5;
     // create 5 bindings
@@ -30,17 +18,14 @@ TEST(SymTable_t1,SymTableTestOfnullptr){// ZeroShouldBeOne){
     // expected a nullptr
     EXPECT_TRUE(pre == nullptr);
     cout<<"checked EXPECT_TRUE"<<endl;
-    // EXPECT_NO_THROW(pre->next);
     // adding values
     iNode* prev= head;
     while (i>0)    {
         prev->next=SymTable_new();
         prev=prev->next;
-        // cout<<i<<endl;
         i--;
     }
     cout<<"(SymTable_getLength)Total length including head is : "<<SymTable_getLength(head)<<endl;
-
 }
 
 TEST(SymTable_puttesting, SymTable_puttestingOfPositiveNos){
@@ -67,25 +52,16 @@ TEST(SymTable_puttesting, SymTable_puttestingOfPositiveNos){
     cout<<"(SymTable_put)inserted ..!"<<endl;
     ASSERT_EQ(1, SymTable_contains (head,pcKey5));
     ASSERT_EQ(7, SymTable_getLength (head));
-    // Print(head);
 }
 TEST(SymTable_Pointersting, SymTableNullPointer){
-    // Print(head);
     int y=100;
     EXPECT_TRUE(SymTable_get(head,"i2") != nullptr);
     EXPECT_TRUE(SymTable_remove(head,"i2") != nullptr);
     EXPECT_TRUE(SymTable_replace(head,"i2",&y) == nullptr);
-    // EXPECT_TRUE(SymTable_get(head,"i2") != nullptr);
-    // EXPECT_TRUE(SymTable_get(head,"i2") != nullptr);
-    // Print(head);
-
 }
 TEST(SymTable_freetesting, SymTable_freeNullPointer){
-    // Print(head);
     SymTable_free(head);
     EXPECT_TRUE(head != nullptr);
-    // Print(head);
-
 }
 
 int main(int argc, char **argv){

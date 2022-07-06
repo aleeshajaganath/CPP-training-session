@@ -1,6 +1,8 @@
 #!/bin/sh
-
-make
+cd build
+cmake .
+make 
 ./Exec
+./testSll
 make clean
 echo "cleaned ..!"
