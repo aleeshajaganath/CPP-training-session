@@ -1,7 +1,7 @@
 CC=g++ 
 WFLAGS=-Wall 
-ODIR=include
-INCDIR=src
+ODIR=
+INCDIR=
 _DEPS = symtable.h #dependency .h files
 DEPS = $(patsubst %,$(IDIR)/%,$(_DEPS))
 OBJ= main.o#symtable_link.o# testing_symtable.o #graph_cycles_using_dfs1.o # graph_path_using_dfs1.o 
@@ -15,4 +15,4 @@ $(ODIR)/%.o: %.c $(DEPS)
 .PHONY: cleanv
 
 clean:
-	rm -f $(ODIR)/*.o *~ core $(INCDIR)/*~ 
+	rm -f /*.o *~ core /*~ 
